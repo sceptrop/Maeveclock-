@@ -2,8 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MaeveClock Widgy 160x60 Full-Width</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <title>MaeveClock</title>
+    
+    <!-- iOS PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MaeveClock">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,19 +18,23 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap');
         
+        :root {
+            --safe-top: env(safe-area-inset-top);
+            --safe-bottom: env(safe-area-inset-bottom);
+        }
+
         html, body { 
             font-family: 'Inter', sans-serif; 
             margin: 0;
             padding: 0;
             background-color: #1a1a1a;
-            min-height: 100vh;
+            height: 100vh;
             width: 100vw;
-            overflow-x: hidden;
-            overflow-y: auto;
+            /* Disable all scrolling */
+            overflow: hidden;
             display: flex;
-            align-items: flex-start; 
+            align-items: center;
             justify-content: center;
-            padding-bottom: 80vh; 
         }
 
         .font-mono { font-family: 'JetBrains Mono', monospace; }
@@ -36,18 +45,18 @@
 
         @keyframes slidePatternDiagonal {
             0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(30px, -30px, 0); }
+            100% { transform: translate3d(60px, -30px, 0); }
         }
 
         .pattern-overlay-base {
-            background-size: 30px 30px;
+            background-size: 60px 60px;
             background-repeat: repeat;
             position: absolute;
             top: 0;
-            left: -30px; 
-            width: calc(100% + 30px);
-            height: calc(100% + 30px);
-            animation: slidePatternDiagonal 8s linear infinite;
+            left: -60px; 
+            width: calc(100% + 120px);
+            height: calc(100% + 120px);
+            animation: slidePatternDiagonal 10s linear infinite;
             will-change: transform;
             pointer-events: none;
             z-index: 0;
@@ -55,103 +64,265 @@
 
         /* Staggered Patterns */
         .pattern-moon-overlay { 
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' fill='rgba(74,222,128,0.1)'/%3E%3Cpath d='M21 42.79A9 9 0 1 1 11.21 33 7 7 0 0 0 21 42.79z' fill='rgba(20,83,45,0.15)'/%3E%3C/svg%3E"); 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' fill='rgba(74,222,128,0.1)'/%3E%3Cpath d='M51 12.79A9 9 0 1 1 41.21 3 7 7 0 0 0 51 12.79z' fill='rgba(20,83,45,0.2)'/%3E%3Cpath d='M21 42.79A9 9 0 1 1 11.21 33 7 7 0 0 0 21 42.79z' fill='rgba(20,83,45,0.2)'/%3E%3Cpath d='M51 42.79A9 9 0 1 1 41.21 33 7 7 0 0 0 51 42.79z' fill='rgba(74,222,128,0.1)'/%3E%3C/svg%3E"); 
         }
         
         .pattern-heart-overlay { 
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(74,222,128,0.1)'/%3E%3Cpath d='M20.84 34.61a5.5 5.5 0 0 0-7.78 0L12 35.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 51.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(20,83,45,0.15)'/%3E%3C/svg%3E"); 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(74,222,128,0.2)'/%3E%3Cpath d='M50.84 4.61a5.5 5.5 0 0 0-7.78 0L42 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L42 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(20,83,45,0.3)'/%3E%3Cpath d='M20.84 34.61a5.5 5.5 0 0 0-7.78 0L12 35.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 51.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(20,83,45,0.3)'/%3E%3Cpath d='M50.84 34.61a5.5 5.5 0 0 0-7.78 0L42 35.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L42 51.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(74,222,128,0.2)'/%3E%3C/svg%3E"); 
         }
         
         .pattern-camera-overlay { 
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 60 60' fill='none' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg stroke='rgba(74,222,128,0.1)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3Cg stroke='rgba(20,83,45,0.15)' transform='translate(0,30)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E"); 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg stroke='rgba(74,222,128,0.15)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3Cg stroke='rgba(20,83,45,0.25)' transform='translate(30,0)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3Cg stroke='rgba(20,83,45,0.25)' transform='translate(0,30)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3Cg stroke='rgba(74,222,128,0.15)' transform='translate(30,30)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E"); 
         }
 
-        .green-haze { text-shadow: 0 0 10px rgba(74, 222, 128, 0.6); }
-
-        .widgy-container {
-            width: 320px; 
-            height: 120px; 
-            overflow: hidden;
+        .conv-input {
+            width: 100%;
+            background-color: rgba(20, 83, 45, 0.3);
+            border: 1px solid rgba(74, 222, 128, 0.2);
+            border-radius: 12px;
+            padding: 14px;
+            font-size: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            color: #4ade80;
+            -webkit-appearance: none;
         }
+
+        .bg-charcoal { background-color: #1a1a1a; }
+        .green-haze { text-shadow: 0 0 12px rgba(74, 222, 128, 0.7); }
+
+        #conversion-sidebar, #debug-sidebar {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+        
+        /* Layout will scale to viewport */
+        .app-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="text-green-400">
+<body class="flex flex-col items-center justify-start text-green-400">
 
-    <div class="widgy-container relative bg-zinc-900 rounded-[24px] shadow-2xl border border-zinc-700/50 flex flex-col pt-0 overflow-hidden">
+    <!-- App Wrapper: Scales to full screen -->
+    <div class="app-container relative">
         
-        <!-- Background Pattern Layer (Full Width) -->
-        <div id="header-bg" class="absolute inset-0 status-transition overflow-hidden rounded-[24px]">
-            <div id="pattern-moon-overlay" class="pattern-overlay-base pattern-moon-overlay opacity-0 transition-opacity duration-1000"></div>
-            <div id="pattern-heart-overlay" class="pattern-overlay-base pattern-heart-overlay opacity-0 transition-opacity duration-1000"></div>
-            <div id="pattern-camera-overlay" class="pattern-overlay-base pattern-camera-overlay opacity-0 transition-opacity duration-1000"></div>
-        </div>
-
-        <!-- Main Info Content Layer -->
-        <div class="flex flex-1 overflow-hidden relative z-10">
+        <!-- App Header: Full width, brightened labels -->
+        <div class="w-full flex-1 bg-zinc-900 rounded-[40px] overflow-hidden shadow-2xl border border-zinc-700/50 relative z-10 flex flex-col">
             
-            <!-- Left Side: Status Info -->
-            <div class="w-6/12 flex flex-col justify-center px-5">
-                <!-- Status Label: Full Brightness -->
-                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-green-400 block mb-0.5">Status</span>
-                <h2 id="status-title" class="text-2xl font-black leading-none uppercase text-green-400 tracking-tighter">Loading...</h2>
+            <!-- Pattern Overlay now spans the whole header/widget bg -->
+            <div id="header-bg" class="absolute inset-0 status-transition overflow-hidden">
+                <div id="pattern-moon-overlay" class="pattern-overlay-base pattern-moon-overlay opacity-0 transition-opacity duration-1000"></div>
+                <div id="pattern-heart-overlay" class="pattern-overlay-base pattern-heart-overlay opacity-0 transition-opacity duration-1000"></div>
+                <div id="pattern-camera-overlay" class="pattern-overlay-base pattern-camera-overlay opacity-0 transition-opacity duration-1000"></div>
             </div>
 
-            <!-- Right Side: Clocks Stacked -->
-            <div class="w-6/12 flex flex-col justify-center gap-2 px-4">
-                <div class="flex items-baseline justify-between">
-                    <!-- ADL Label: Full Brightness -->
-                    <span class="text-[10px] font-black uppercase tracking-widest text-green-400">ADL</span>
-                    <div id="adelaide-clock" class="text-xl font-mono font-bold text-green-400 green-haze leading-none">00:00</div>
+            <div class="relative z-10 flex flex-col h-full">
+                <!-- Status Row -->
+                <div class="py-8 pl-10 pr-10 flex justify-between items-center">
+                    <div class="flex flex-col overflow-hidden">
+                        <!-- Label: Full Brightness -->
+                        <span class="text-[12px] font-black uppercase tracking-[0.3em] text-green-400">Current Status</span>
+                        <h2 id="status-title" class="text-4xl sm:text-5xl font-black leading-tight uppercase text-green-400 truncate">Loading...</h2>
+                    </div>
+                    <!-- Icons Group: Pulled in from edge -->
+                    <div class="flex gap-4 shrink-0">
+                         <button id="conv-btn" class="p-3 bg-black/40 rounded-2xl border border-green-500/20 active:scale-90 transition-transform">
+                            <i data-lucide="ruler" class="w-6 h-6 text-green-400"></i>
+                         </button>
+                         <button id="debug-btn" class="p-3 bg-black/40 rounded-2xl border border-green-500/20 active:scale-90 transition-transform">
+                            <i data-lucide="settings" class="w-6 h-6 text-green-400"></i>
+                         </button>
+                    </div>
                 </div>
-                <div class="flex items-baseline justify-between">
-                    <!-- MIA Label: Full Brightness -->
-                    <span class="text-[10px] font-black uppercase tracking-widest text-green-400">MIA</span>
-                    <div id="miami-clock" class="text-xl font-mono font-bold text-green-400 green-haze leading-none">00:00</div>
+
+                <!-- Clocks Section: Scales based on height -->
+                <div class="flex-1 px-8 grid grid-cols-2 gap-6 bg-black/10">
+                    <div class="flex flex-col justify-center bg-green-950/20 p-6 rounded-3xl border border-green-500/10">
+                        <!-- ADL Label: Full Brightness -->
+                        <div class="flex items-center gap-2 mb-2 text-green-400"><i data-lucide="map-pin" class="w-5 h-5"></i><span class="text-[12px] font-black uppercase tracking-widest">Adelaide</span></div>
+                        <div id="adelaide-clock" class="text-4xl sm:text-5xl font-mono font-bold tracking-tighter text-green-400 green-haze leading-none">00:00 AM</div>
+                    </div>
+                    <div class="flex flex-col justify-center bg-green-950/20 p-6 rounded-3xl border border-green-500/10">
+                        <!-- MIA Label: Full Brightness -->
+                        <div class="flex items-center gap-2 mb-2 text-green-400"><i data-lucide="sun" class="w-5 h-5"></i><span class="text-[12px] font-black uppercase tracking-widest">Miami</span></div>
+                        <div id="miami-clock" class="text-4xl sm:text-5xl font-mono font-bold tracking-tighter text-green-400 green-haze leading-none">00:00 AM</div>
+                    </div>
+                </div>
+
+                <!-- Timeline Bar: At the bottom -->
+                <div class="px-10 pt-10 pb-10 bg-black/30">
+                    <div class="relative h-4 w-full bg-zinc-800 rounded-full overflow-hidden flex">
+                        <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
+                        <div class="h-full bg-blue-950" style="width: 33.33%"></div> 
+                        <div class="h-full bg-[#3b0764]" style="width: 20.83%"></div> 
+                        <div class="h-full bg-zinc-700" style="width: 29.17%"></div> 
+                        <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
+                        <div id="time-cursor" class="absolute top-0 bottom-0 w-2 bg-green-200 shadow-[0_0_20px_rgba(74,222,128,1)] z-10 transition-all duration-1000"></div>
+                    </div>
+                    <div class="flex justify-between mt-4 text-[12px] text-green-400 font-black px-1 uppercase tracking-widest">
+                        <span>12am</span><span>6am</span><span>12pm</span><span>6pm</span><span>12am</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Bottom Timeline Strip: Thin Sliver of Black -->
-        <div class="h-3 bg-black flex flex-col justify-center px-5 relative overflow-hidden z-20">
-            <div class="relative h-[3px] w-full bg-zinc-800 rounded-full overflow-hidden flex">
-                <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
-                <div class="h-full bg-blue-950" style="width: 33.33%"></div> 
-                <div class="h-full bg-[#3b0764]" style="width: 20.83%"></div> 
-                <div class="h-full bg-zinc-700" style="width: 29.17%"></div> 
-                <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
-                
-                <div id="time-cursor" class="absolute top-0 bottom-0 w-1 bg-green-200 shadow-[0_0_8px_rgba(74,222,128,1)] z-10"></div>
-            </div>
+        <!-- Schedule List: Now fits inside remaining screen space (not scrollable down) -->
+        <div class="mt-8 flex-[0.8] overflow-hidden flex flex-col">
+            <h3 class="text-[12px] font-black text-green-400 uppercase tracking-[0.3em] px-2 mb-6">Schedule Overview</h3>
+            <div id="schedule-list" class="space-y-4 flex-1 overflow-hidden"></div>
         </div>
+
+        <!-- Side Drawers -->
+        <div id="conversion-sidebar" class="fixed inset-x-0 bottom-0 h-3/4 bg-zinc-900 border-t border-zinc-700 rounded-t-[50px] z-50 transform translate-y-full px-8 py-10 shadow-2xl opacity-0">
+            <div class="w-16 h-2 bg-zinc-700 rounded-full mx-auto mb-8"></div>
+            <div class="flex items-center gap-4 mb-10">
+                <i data-lucide="ruler" class="w-6 h-6 text-green-600"></i>
+                <h2 class="text-xl font-bold uppercase tracking-widest text-green-400">Conversions</h2>
+            </div>
+            <div class="space-y-8 overflow-y-auto max-h-[65%] no-scrollbar">
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">°C</label><input type="number" id="c-input" placeholder="0" class="conv-input"></div>
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">°F</label><input type="number" id="f-input" placeholder="0" class="conv-input"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">KM/H</label><input type="number" id="kmh-input" placeholder="0" class="conv-input"></div>
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">MPH</label><input type="number" id="mph-input" placeholder="0" class="conv-input"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">CM</label><input type="number" id="cm-input" placeholder="0" class="conv-input"></div>
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">Inches</label><input type="number" id="in-input" placeholder="0" class="conv-input"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">Meters</label><input type="number" id="m-input" placeholder="0" class="conv-input"></div>
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">Yards</label><input type="number" id="yd-input" placeholder="0" class="conv-input"></div>
+                </div>
+            </div>
+            <button onclick="toggleSidebar('conversion', false)" class="mt-10 w-full py-5 bg-zinc-800 rounded-3xl text-green-400 font-bold uppercase tracking-widest active:bg-zinc-700 shadow-lg">Close</button>
+        </div>
+
+        <div id="debug-sidebar" class="fixed inset-x-0 bottom-0 h-1/3 bg-zinc-900 border-t border-zinc-700 rounded-t-[50px] z-50 transform translate-y-full px-10 py-10 shadow-2xl opacity-0">
+             <div class="w-16 h-2 bg-zinc-700 rounded-full mx-auto mb-8"></div>
+             <div class="flex justify-between items-center mb-10">
+                <label class="font-bold text-green-500 uppercase tracking-wider flex items-center gap-4 text-lg"><i data-lucide="settings-2" class="w-6 h-6"></i> Manual Mode</label>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" id="manual-toggle" class="sr-only peer">
+                    <div class="w-14 h-8 bg-zinc-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:rounded-full after:h-6 after:w-6 after:transition-all peer-checked:bg-green-600"></div>
+                </label>
+            </div>
+            <div class="space-y-5 opacity-30 transition-opacity duration-300" id="manual-controls">
+                <div class="flex justify-between items-end">
+                    <span class="text-green-700 font-bold text-[11px] uppercase tracking-widest">Time Scrubber</span>
+                    <span id="manual-time-display" class="font-mono text-green-300 font-bold text-2xl">12:00 PM</span>
+                </div>
+                <input type="range" id="manual-slider" min="0" max="23.99" step="0.1" value="12" class="w-full h-2.5 bg-zinc-700 rounded-lg appearance-none cursor-pointer accent-green-500">
+            </div>
+            <button onclick="toggleSidebar('debug', false)" class="mt-10 w-full py-5 bg-zinc-800 rounded-3xl text-green-400 font-bold uppercase tracking-widest active:bg-zinc-700 shadow-lg">Close</button>
+        </div>
+
+        <div id="backdrop" class="fixed inset-0 bg-black/70 z-40 hidden opacity-0 transition-opacity duration-300"></div>
     </div>
 
     <script>
-        let lastStatusType = null;
-        let lastStatusColor = null;
+        let lastStatusType = null, lastStatusColor = null, manualOverride = false, manualDecimalTime = 12.0;
 
         lucide.createIcons();
 
-        function update() {
-            const now = new Date();
-            const miami = new Date(now.getTime() - (15.5 * 3600000));
-            
-            const hours = now.getHours();
-            const mins = now.getMinutes();
-            const decimalTime = hours + (mins / 60);
+        const backdrop = document.getElementById('backdrop');
+        const sidebars = {
+            conversion: document.getElementById('conversion-sidebar'),
+            debug: document.getElementById('debug-sidebar')
+        };
 
-            const fmt = { hour: '2-digit', minute: '2-digit', hour12: false };
-            document.getElementById('adelaide-clock').innerText = now.toLocaleTimeString('en-US', fmt);
-            document.getElementById('miami-clock').innerText = miami.toLocaleTimeString('en-US', fmt);
+        function toggleSidebar(key, show) {
+            const el = sidebars[key];
+            if (show) {
+                backdrop.classList.remove('hidden');
+                setTimeout(() => {
+                    backdrop.classList.add('opacity-100');
+                    el.style.transform = "translateY(0)";
+                    el.classList.add('opacity-100');
+                }, 10);
+            } else {
+                backdrop.classList.remove('opacity-100');
+                el.style.transform = "translateY(100%)";
+                el.classList.remove('opacity-100');
+                setTimeout(() => backdrop.classList.add('hidden'), 300);
+            }
+        }
+
+        document.getElementById('conv-btn').addEventListener('click', () => toggleSidebar('conversion', true));
+        document.getElementById('debug-btn').addEventListener('click', () => toggleSidebar('debug', true));
+        backdrop.addEventListener('click', () => {
+            toggleSidebar('conversion', false);
+            toggleSidebar('debug', false);
+        });
+
+        // Conversions
+        const cIn = document.getElementById('c-input'), fIn = document.getElementById('f-input');
+        const kmhIn = document.getElementById('kmh-input'), mphIn = document.getElementById('mph-input');
+        const cmIn = document.getElementById('cm-input'), inIn = document.getElementById('in-input');
+        const mIn = document.getElementById('m-input'), ydIn = document.getElementById('yd-input');
+
+        cIn.addEventListener('input', () => { if (cIn.value === '') { fIn.value = ''; return; } fIn.value = ((parseFloat(cIn.value) * 9/5) + 32).toFixed(1); });
+        fIn.addEventListener('input', () => { if (fIn.value === '') { cIn.value = ''; return; } cIn.value = ((parseFloat(fIn.value) - 32) * 5/9).toFixed(1); });
+        kmhIn.addEventListener('input', () => { if (kmhIn.value === '') { mphIn.value = ''; return; } mphIn.value = (parseFloat(kmhIn.value) / 1.609).toFixed(1); });
+        mphIn.addEventListener('input', () => { if (mphIn.value === '') { kmhIn.value = ''; return; } kmhIn.value = (parseFloat(mphIn.value) * 1.609).toFixed(1); });
+        cmIn.addEventListener('input', () => { if (cmIn.value === '') { inIn.value = ''; return; } inIn.value = (parseFloat(cmIn.value) / 2.54).toFixed(1); });
+        inIn.addEventListener('input', () => { if (inIn.value === '') { cmIn.value = ''; return; } cmIn.value = (parseFloat(inIn.value) * 2.54).toFixed(1); });
+        mIn.addEventListener('input', () => { if (mIn.value === '') { ydIn.value = ''; return; } ydIn.value = (parseFloat(mIn.value) / 0.914).toFixed(1); });
+        ydIn.addEventListener('input', () => { if (ydIn.value === '') { mIn.value = ''; return; } mIn.value = (parseFloat(ydIn.value) * 0.914).toFixed(1); });
+
+        // Debug
+        const toggleSwitch = document.getElementById('manual-toggle'), controls = document.getElementById('manual-controls');
+        const slider = document.getElementById('manual-slider'), display = document.getElementById('manual-time-display');
+
+        toggleSwitch.addEventListener('change', (e) => {
+            manualOverride = e.target.checked;
+            controls.style.opacity = manualOverride ? "1" : "0.3";
+            controls.style.pointerEvents = manualOverride ? "auto" : "none";
+            update();
+        });
+
+        slider.addEventListener('input', (e) => {
+            manualDecimalTime = parseFloat(e.target.value);
+            let h = Math.floor(manualDecimalTime);
+            let m = Math.floor((manualDecimalTime % 1) * 60);
+            const ampm = h >= 12 ? 'PM' : 'AM';
+            let displayH = h % 12 || 12;
+            display.innerText = `${displayH}:${m.toString().padStart(2, '0')} ${ampm}`;
+            if (manualOverride) update();
+        });
+
+        function update() {
+            let now = new Date();
+            if (manualOverride) { 
+                now = new Date();
+                now.setHours(Math.floor(manualDecimalTime)); 
+                now.setMinutes(Math.floor((manualDecimalTime % 1) * 60)); 
+                now.setSeconds(0); 
+            }
             
+            const miami = new Date(now.getTime() - (15.5 * 3600000));
+            const hours = now.getHours(), mins = now.getMinutes(), decimalTime = hours + (mins / 60);
+
+            const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+            document.getElementById('adelaide-clock').innerText = now.toLocaleTimeString('en-US', timeOptions);
+            document.getElementById('miami-clock').innerText = miami.toLocaleTimeString('en-US', timeOptions);
             document.getElementById('time-cursor').style.left = (decimalTime / 24 * 100) + '%';
 
             let status = {};
             if (decimalTime >= 22 || decimalTime < 2) {
-                status = { title: "YAP", color: "bg-[#3b0764]", type: 'talk' };
+                status = { title: "YAP TIME", color: "bg-[#3b0764]", type: 'talk-pm' };
             } else if (decimalTime >= 2 && decimalTime < 10) {
-                status = { title: "SLEEP", color: "bg-blue-950", type: 'sleep' };
+                status = { title: "SLEEPY TIME", color: "bg-blue-950", type: 'sleep' };
             } else if (decimalTime >= 10 && decimalTime < 15) {
-                status = { title: "CHOC", color: "bg-[#3b0764]", type: 'talk' };
+                status = { title: "MORNING CHOCOLATE", color: "bg-[#3b0764]", type: 'talk-am' };
             } else {
                 status = { title: "WORK", color: "bg-zinc-800", type: 'work' };
             }
@@ -163,22 +334,48 @@
 
             if (status.type !== lastStatusType) {
                 document.getElementById('status-title').innerText = status.title;
-                const moon = document.getElementById('pattern-moon-overlay');
-                const heart = document.getElementById('pattern-heart-overlay');
-                const camera = document.getElementById('pattern-camera-overlay');
-                
+                const moon = document.getElementById('pattern-moon-overlay'), heart = document.getElementById('pattern-heart-overlay'), camera = document.getElementById('pattern-camera-overlay');
                 [moon, heart, camera].forEach(o => o.classList.replace('opacity-100', 'opacity-0'));
                 
                 if (status.type === 'sleep') moon.classList.replace('opacity-0', 'opacity-100');
-                else if (status.type === 'talk') heart.classList.replace('opacity-0', 'opacity-100');
+                else if (status.type.includes('talk')) heart.classList.replace('opacity-0', 'opacity-100');
                 else if (status.type === 'work') camera.classList.replace('opacity-0', 'opacity-100');
+
+                const items = [
+                    { time: '10:00 PM', label: 'YAP TIME', type: 'talk-pm', icon: 'heart', color: 'bg-purple-600' },
+                    { time: '2:00 AM', label: 'SLEEPY TIME', type: 'sleep', icon: 'moon', color: 'bg-blue-600' },
+                    { time: '10:00 AM', label: 'Morning Chocolate', type: 'talk-am', icon: 'heart', color: 'bg-purple-600' },
+                    { time: '3:00 PM', label: 'WORK', type: 'work', icon: 'camera', color: 'bg-zinc-500' }
+                ];
+                
+                document.getElementById('schedule-list').innerHTML = items.map(item => `
+                    <div class="flex items-center gap-6 p-1 group">
+                        <div class="relative z-10 flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-500 
+                            ${item.type === status.type 
+                                ? 'bg-zinc-900 border-green-500/50 shadow-[0_0_15px_rgba(34,197,94,0.3)]' 
+                                : 'bg-zinc-900/80 border-zinc-800 opacity-40'}">
+                            <i data-lucide="${item.icon}" class="w-5 h-5 ${item.type === status.type ? 'text-green-400' : 'text-zinc-600'}"></i>
+                        </div>
+                        
+                        <div class="flex-1 flex items-center justify-between p-4 rounded-[28px] border transition-all duration-500 
+                            ${item.type === status.type 
+                                ? 'bg-green-950/20 border-green-500/30 shadow-xl' 
+                                : 'bg-zinc-900/40 border-transparent opacity-60'}">
+                            <div class="flex flex-col">
+                                <span class="text-xs font-black uppercase tracking-[0.2em] text-green-700 mb-0.5 leading-none">Category</span>
+                                <span class="text-base font-bold tracking-tight text-green-400">${item.label}</span>
+                            </div>
+                            <span class="font-mono text-[11px] text-green-700 tracking-wider">${item.time}</span>
+                        </div>
+                    </div>`).join('');
                 
                 lastStatusType = status.type;
+                lucide.createIcons();
             }
         }
 
-        function tick() { update(); setTimeout(tick, 30000); }
-        window.onload = () => { update(); setTimeout(tick, 1000); lucide.createIcons(); };
+        function tick() { update(); setTimeout(tick, 1000); }
+        window.onload = () => { tick(); lucide.createIcons(); };
     </script>
 </body>
 </html>
