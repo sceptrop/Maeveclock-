@@ -22,7 +22,7 @@
             width: 100vw;
             overflow: hidden;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Aligned to top instead of center */
             justify-content: center;
         }
 
@@ -34,7 +34,7 @@
 
         @keyframes slidePatternDiagonal {
             0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(60px, -60px, 0); }
+            100% { transform: translate3d(60px, -30px, 0); }
         }
 
         .pattern-overlay-base {
@@ -68,14 +68,14 @@
 </head>
 <body class="text-green-400">
 
-    <!-- Widgy Widget Container -->
-    <div class="relative w-full max-w-[420px] aspect-square flex flex-col p-4">
+    <!-- Widgy Widget Container: Removed top padding to press up -->
+    <div class="relative w-full max-w-[420px] aspect-square flex flex-col p-4 pt-0">
         
         <!-- Header / Status Area -->
-        <div class="w-full bg-zinc-900 rounded-[45px] overflow-hidden shadow-2xl border border-zinc-700/50 relative flex flex-col h-full">
+        <div class="w-full bg-zinc-900 rounded-b-[45px] rounded-t-[45px] overflow-hidden shadow-2xl border border-zinc-700/50 relative flex flex-col h-full">
             
-            <!-- Animated Top Pattern Segment -->
-            <div id="header-bg" class="relative flex-1 status-transition overflow-hidden flex flex-col justify-center px-8">
+            <!-- Animated Top Pattern Segment: Aligned start (top) -->
+            <div id="header-bg" class="relative flex-1 status-transition overflow-hidden flex flex-col justify-start pt-8 px-8">
                 <div id="pattern-moon-overlay" class="pattern-overlay-base pattern-moon-overlay opacity-0 transition-opacity duration-1000"></div>
                 <div id="pattern-heart-overlay" class="pattern-overlay-base pattern-heart-overlay opacity-0 transition-opacity duration-1000"></div>
                 <div id="pattern-camera-overlay" class="pattern-overlay-base pattern-camera-overlay opacity-0 transition-opacity duration-1000"></div>
@@ -157,9 +157,9 @@
                 status = { title: "WORK", color: "bg-zinc-800", type: 'work' };
             }
 
-            // Update Header Color
+            // Update Header Color - preserved flex justify-start
             if (status.color !== lastStatusColor) {
-                document.getElementById('header-bg').className = `relative flex-1 status-transition overflow-hidden flex flex-col justify-center px-8 ${status.color}`;
+                document.getElementById('header-bg').className = `relative flex-1 status-transition overflow-hidden flex flex-col justify-start pt-8 px-8 ${status.color}`;
                 lastStatusColor = status.color;
             }
 
@@ -184,7 +184,7 @@
         // Start loop
         function tick() { 
             update(); 
-            setTimeout(tick, 30000); // Widgy doesn't need second-precision constant updates
+            setTimeout(tick, 30000); // Widgy loop
         }
         
         window.onload = () => { 
