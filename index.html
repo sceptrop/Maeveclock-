@@ -18,12 +18,15 @@
             margin: 0;
             padding: 0;
             background-color: #1a1a1a;
-            height: 100vh;
+            min-height: 100vh; /* Changed from height to min-height */
             width: 100vw;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto; /* Allowed vertical scrolling */
             display: flex;
-            align-items: flex-start; /* Aligned to top instead of center */
+            align-items: flex-start; 
             justify-content: center;
+            /* Added massive bottom padding to create the scrollable void */
+            padding-bottom: 60vh; 
         }
 
         .font-mono { font-family: 'JetBrains Mono', monospace; }
@@ -68,13 +71,13 @@
 </head>
 <body class="text-green-400">
 
-    <!-- Widgy Widget Container: Removed top padding to press up -->
+    <!-- Widgy Widget Container -->
     <div class="relative w-full max-w-[420px] aspect-square flex flex-col p-4 pt-0">
         
         <!-- Header / Status Area -->
         <div class="w-full bg-zinc-900 rounded-b-[45px] rounded-t-[45px] overflow-hidden shadow-2xl border border-zinc-700/50 relative flex flex-col h-full">
             
-            <!-- Animated Top Pattern Segment: Aligned start (top) -->
+            <!-- Animated Top Pattern Segment -->
             <div id="header-bg" class="relative flex-1 status-transition overflow-hidden flex flex-col justify-start pt-8 px-8">
                 <div id="pattern-moon-overlay" class="pattern-overlay-base pattern-moon-overlay opacity-0 transition-opacity duration-1000"></div>
                 <div id="pattern-heart-overlay" class="pattern-overlay-base pattern-heart-overlay opacity-0 transition-opacity duration-1000"></div>
@@ -157,7 +160,7 @@
                 status = { title: "WORK", color: "bg-zinc-800", type: 'work' };
             }
 
-            // Update Header Color - preserved flex justify-start
+            // Update Header Color
             if (status.color !== lastStatusColor) {
                 document.getElementById('header-bg').className = `relative flex-1 status-transition overflow-hidden flex flex-col justify-start pt-8 px-8 ${status.color}`;
                 lastStatusColor = status.color;
