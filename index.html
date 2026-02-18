@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MaeveClock Widgy</title>
+    <title>MaeveClock Widgy 160x60 Full-Width</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -18,15 +18,14 @@
             margin: 0;
             padding: 0;
             background-color: #1a1a1a;
-            min-height: 100vh; /* Changed from height to min-height */
+            min-height: 100vh;
             width: 100vw;
             overflow-x: hidden;
-            overflow-y: auto; /* Allowed vertical scrolling */
+            overflow-y: auto;
             display: flex;
             align-items: flex-start; 
             justify-content: center;
-            /* Added massive bottom padding to create the scrollable void */
-            padding-bottom: 60vh; 
+            padding-bottom: 80vh; 
         }
 
         .font-mono { font-family: 'JetBrains Mono', monospace; }
@@ -37,91 +36,91 @@
 
         @keyframes slidePatternDiagonal {
             0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(60px, -30px, 0); }
+            100% { transform: translate3d(30px, -30px, 0); }
         }
 
         .pattern-overlay-base {
-            background-size: 60px 60px;
+            background-size: 30px 30px;
             background-repeat: repeat;
             position: absolute;
             top: 0;
-            left: -60px; 
-            width: calc(100% + 60px);
-            height: calc(100% + 60px);
-            animation: slidePatternDiagonal 10s linear infinite;
+            left: -30px; 
+            width: calc(100% + 30px);
+            height: calc(100% + 30px);
+            animation: slidePatternDiagonal 8s linear infinite;
             will-change: transform;
             pointer-events: none;
+            z-index: 0;
         }
 
         /* Staggered Patterns */
         .pattern-moon-overlay { 
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' fill='rgba(74,222,128,0.1)'/%3E%3Cpath d='M51 12.79A9 9 0 1 1 41.21 3 7 7 0 0 0 51 12.79z' fill='rgba(20,83,45,0.2)'/%3E%3Cpath d='M21 42.79A9 9 0 1 1 11.21 33 7 7 0 0 0 21 42.79z' fill='rgba(20,83,45,0.2)'/%3E%3Cpath d='M51 42.79A9 9 0 1 1 41.21 33 7 7 0 0 0 51 42.79z' fill='rgba(74,222,128,0.1)'/%3E%3C/svg%3E"); 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z' fill='rgba(74,222,128,0.1)'/%3E%3Cpath d='M21 42.79A9 9 0 1 1 11.21 33 7 7 0 0 0 21 42.79z' fill='rgba(20,83,45,0.15)'/%3E%3C/svg%3E"); 
         }
         
         .pattern-heart-overlay { 
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(74,222,128,0.2)'/%3E%3Cpath d='M50.84 4.61a5.5 5.5 0 0 0-7.78 0L42 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L42 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(20,83,45,0.3)'/%3E%3Cpath d='M20.84 34.61a5.5 5.5 0 0 0-7.78 0L12 35.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 51.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(20,83,45,0.3)'/%3E%3Cpath d='M50.84 34.61a5.5 5.5 0 0 0-7.78 0L42 35.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L42 51.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(74,222,128,0.2)'/%3E%3C/svg%3E"); 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(74,222,128,0.1)'/%3E%3Cpath d='M20.84 34.61a5.5 5.5 0 0 0-7.78 0L12 35.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 51.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z' fill='rgba(20,83,45,0.15)'/%3E%3C/svg%3E"); 
         }
         
         .pattern-camera-overlay { 
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60' fill='none' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg stroke='rgba(74,222,128,0.15)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3Cg stroke='rgba(20,83,45,0.25)' transform='translate(30,0)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3Cg stroke='rgba(20,83,45,0.25)' transform='translate(0,30)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3Cg stroke='rgba(74,222,128,0.15)' transform='translate(30,30)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E"); 
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 60 60' fill='none' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg stroke='rgba(74,222,128,0.1)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3Cg stroke='rgba(20,83,45,0.15)' transform='translate(0,30)'%3E%3Cpath d='M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z'/%3E%3Ccircle cx='12' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E"); 
         }
 
-        .green-haze { text-shadow: 0 0 15px rgba(74, 222, 128, 0.7); }
+        .green-haze { text-shadow: 0 0 10px rgba(74, 222, 128, 0.6); }
+
+        .widgy-container {
+            width: 320px; 
+            height: 120px; 
+            overflow: hidden;
+        }
     </style>
 </head>
 <body class="text-green-400">
 
-    <!-- Widgy Widget Container -->
-    <div class="relative w-full max-w-[420px] aspect-square flex flex-col p-4 pt-0">
+    <div class="widgy-container relative bg-zinc-900 rounded-[24px] shadow-2xl border border-zinc-700/50 flex flex-col pt-0 overflow-hidden">
         
-        <!-- Header / Status Area -->
-        <div class="w-full bg-zinc-900 rounded-b-[45px] rounded-t-[45px] overflow-hidden shadow-2xl border border-zinc-700/50 relative flex flex-col h-full">
+        <!-- Background Pattern Layer (Full Width) -->
+        <div id="header-bg" class="absolute inset-0 status-transition overflow-hidden rounded-[24px]">
+            <div id="pattern-moon-overlay" class="pattern-overlay-base pattern-moon-overlay opacity-0 transition-opacity duration-1000"></div>
+            <div id="pattern-heart-overlay" class="pattern-overlay-base pattern-heart-overlay opacity-0 transition-opacity duration-1000"></div>
+            <div id="pattern-camera-overlay" class="pattern-overlay-base pattern-camera-overlay opacity-0 transition-opacity duration-1000"></div>
+        </div>
+
+        <!-- Main Info Content Layer -->
+        <div class="flex flex-1 overflow-hidden relative z-10">
             
-            <!-- Animated Top Pattern Segment -->
-            <div id="header-bg" class="relative flex-1 status-transition overflow-hidden flex flex-col justify-start pt-8 px-8">
-                <div id="pattern-moon-overlay" class="pattern-overlay-base pattern-moon-overlay opacity-0 transition-opacity duration-1000"></div>
-                <div id="pattern-heart-overlay" class="pattern-overlay-base pattern-heart-overlay opacity-0 transition-opacity duration-1000"></div>
-                <div id="pattern-camera-overlay" class="pattern-overlay-base pattern-camera-overlay opacity-0 transition-opacity duration-1000"></div>
+            <!-- Left Side: Status Info -->
+            <div class="w-6/12 flex flex-col justify-center px-5">
+                <!-- Status Label: Full Brightness -->
+                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-green-400 block mb-0.5">Status</span>
+                <h2 id="status-title" class="text-2xl font-black leading-none uppercase text-green-400 tracking-tighter">Loading...</h2>
+            </div>
+
+            <!-- Right Side: Clocks Stacked -->
+            <div class="w-6/12 flex flex-col justify-center gap-2 px-4">
+                <div class="flex items-baseline justify-between">
+                    <!-- ADL Label: Full Brightness -->
+                    <span class="text-[10px] font-black uppercase tracking-widest text-green-400">ADL</span>
+                    <div id="adelaide-clock" class="text-xl font-mono font-bold text-green-400 green-haze leading-none">00:00</div>
+                </div>
+                <div class="flex items-baseline justify-between">
+                    <!-- MIA Label: Full Brightness -->
+                    <span class="text-[10px] font-black uppercase tracking-widest text-green-400">MIA</span>
+                    <div id="miami-clock" class="text-xl font-mono font-bold text-green-400 green-haze leading-none">00:00</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Timeline Strip: Thin Sliver of Black -->
+        <div class="h-3 bg-black flex flex-col justify-center px-5 relative overflow-hidden z-20">
+            <div class="relative h-[3px] w-full bg-zinc-800 rounded-full overflow-hidden flex">
+                <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
+                <div class="h-full bg-blue-950" style="width: 33.33%"></div> 
+                <div class="h-full bg-[#3b0764]" style="width: 20.83%"></div> 
+                <div class="h-full bg-zinc-700" style="width: 29.17%"></div> 
+                <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
                 
-                <div class="relative z-10">
-                    <span class="text-[11px] font-bold uppercase tracking-[0.3em] text-green-400/70 block mb-1">Current Status</span>
-                    <h2 id="status-title" class="text-4xl font-black leading-tight uppercase text-green-400 tracking-tight">Loading...</h2>
-                </div>
-            </div>
-
-            <!-- Clocks Segment -->
-            <div class="p-6 grid grid-cols-2 gap-4 bg-black/30 border-t border-b border-white/5">
-                <div class="bg-green-950/20 p-5 rounded-[30px] border border-green-500/10">
-                    <div class="flex items-center gap-2 mb-2 text-green-700">
-                        <i data-lucide="map-pin" class="w-4 h-4"></i>
-                        <span class="text-[10px] font-bold uppercase tracking-widest">Adelaide</span>
-                    </div>
-                    <div id="adelaide-clock" class="text-3xl font-mono font-bold tracking-tighter text-green-400 green-haze leading-none">00:00 AM</div>
-                </div>
-                <div class="bg-green-950/20 p-5 rounded-[30px] border border-green-500/10">
-                    <div class="flex items-center gap-2 mb-2 text-green-700">
-                        <i data-lucide="sun" class="w-4 h-4"></i>
-                        <span class="text-[10px] font-bold uppercase tracking-widest">Miami</span>
-                    </div>
-                    <div id="miami-clock" class="text-3xl font-mono font-bold tracking-tighter text-green-400 green-haze leading-none">00:00 AM</div>
-                </div>
-            </div>
-
-            <!-- Horizontal Timeline Progress Bar -->
-            <div class="px-8 pt-8 pb-10 bg-black/10">
-                <div class="relative h-4 w-full bg-zinc-800 rounded-full overflow-hidden flex">
-                    <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
-                    <div class="h-full bg-blue-950" style="width: 33.33%"></div> 
-                    <div class="h-full bg-[#3b0764]" style="width: 20.83%"></div> 
-                    <div class="h-full bg-zinc-700" style="width: 29.17%"></div> 
-                    <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
-                    
-                    <!-- Current Time Indicator -->
-                    <div id="time-cursor" class="absolute top-0 bottom-0 w-2 bg-green-200 shadow-[0_0_20px_rgba(74,222,128,1)] z-10 transition-all duration-1000"></div>
-                </div>
-                <div class="flex justify-between mt-4 text-[11px] text-green-400/60 font-bold px-1 uppercase tracking-widest">
-                    <span>12am</span><span>6am</span><span>12pm</span><span>6pm</span><span>12am</span>
-                </div>
+                <div id="time-cursor" class="absolute top-0 bottom-0 w-1 bg-green-200 shadow-[0_0_8px_rgba(74,222,128,1)] z-10"></div>
             </div>
         </div>
     </div>
@@ -136,40 +135,34 @@
             const now = new Date();
             const miami = new Date(now.getTime() - (15.5 * 3600000));
             
-            // Adelaide decimal time for logic
             const hours = now.getHours();
             const mins = now.getMinutes();
             const decimalTime = hours + (mins / 60);
 
-            const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
-            document.getElementById('adelaide-clock').innerText = now.toLocaleTimeString('en-US', timeOptions);
-            document.getElementById('miami-clock').innerText = miami.toLocaleTimeString('en-US', timeOptions);
+            const fmt = { hour: '2-digit', minute: '2-digit', hour12: false };
+            document.getElementById('adelaide-clock').innerText = now.toLocaleTimeString('en-US', fmt);
+            document.getElementById('miami-clock').innerText = miami.toLocaleTimeString('en-US', fmt);
             
-            // Position cursor
             document.getElementById('time-cursor').style.left = (decimalTime / 24 * 100) + '%';
 
-            // Determine status
             let status = {};
             if (decimalTime >= 22 || decimalTime < 2) {
-                status = { title: "YAP TIME", color: "bg-[#3b0764]", type: 'talk' };
+                status = { title: "YAP", color: "bg-[#3b0764]", type: 'talk' };
             } else if (decimalTime >= 2 && decimalTime < 10) {
-                status = { title: "SLEEPY TIME", color: "bg-blue-950", type: 'sleep' };
+                status = { title: "SLEEP", color: "bg-blue-950", type: 'sleep' };
             } else if (decimalTime >= 10 && decimalTime < 15) {
-                status = { title: "MORNING CHOCOLATE", color: "bg-[#3b0764]", type: 'talk' };
+                status = { title: "CHOC", color: "bg-[#3b0764]", type: 'talk' };
             } else {
                 status = { title: "WORK", color: "bg-zinc-800", type: 'work' };
             }
 
-            // Update Header Color
             if (status.color !== lastStatusColor) {
-                document.getElementById('header-bg').className = `relative flex-1 status-transition overflow-hidden flex flex-col justify-start pt-8 px-8 ${status.color}`;
+                document.getElementById('header-bg').className = `absolute inset-0 status-transition overflow-hidden rounded-[24px] ${status.color}`;
                 lastStatusColor = status.color;
             }
 
-            // Update Pattern Visibility
             if (status.type !== lastStatusType) {
                 document.getElementById('status-title').innerText = status.title;
-                
                 const moon = document.getElementById('pattern-moon-overlay');
                 const heart = document.getElementById('pattern-heart-overlay');
                 const camera = document.getElementById('pattern-camera-overlay');
@@ -184,17 +177,8 @@
             }
         }
 
-        // Start loop
-        function tick() { 
-            update(); 
-            setTimeout(tick, 30000); // Widgy loop
-        }
-        
-        window.onload = () => { 
-            update();
-            setTimeout(tick, 1000);
-            lucide.createIcons(); 
-        };
+        function tick() { update(); setTimeout(tick, 30000); }
+        window.onload = () => { update(); setTimeout(tick, 1000); lucide.createIcons(); };
     </script>
 </body>
 </html>
