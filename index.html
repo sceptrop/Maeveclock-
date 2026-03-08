@@ -109,13 +109,12 @@
 </head>
 <body class="flex flex-col items-center justify-start text-green-400">
 
-    <!-- App Wrapper: Scales to full screen -->
+    <!-- App Wrapper -->
     <div class="app-container relative">
         
-        <!-- App Header: Full width, brightened labels -->
+        <!-- App Header -->
         <div class="w-full flex-1 bg-zinc-900 rounded-[40px] overflow-hidden shadow-2xl border border-zinc-700/50 relative z-10 flex flex-col">
             
-            <!-- Pattern Overlay spans the whole card bg -->
             <div id="header-bg" class="absolute inset-0 status-transition overflow-hidden">
                 <div id="pattern-moon-overlay" class="pattern-overlay-base pattern-moon-overlay opacity-0 transition-opacity duration-1000"></div>
                 <div id="pattern-heart-overlay" class="pattern-overlay-base pattern-heart-overlay opacity-0 transition-opacity duration-1000"></div>
@@ -129,7 +128,6 @@
                         <span class="text-[12px] font-black uppercase tracking-[0.3em] text-green-400">Current Status</span>
                         <h2 id="status-title" class="text-3xl sm:text-5xl font-black leading-tight uppercase text-green-400 truncate">Loading...</h2>
                     </div>
-                    <!-- Icons Group -->
                     <div class="flex gap-4 shrink-0">
                          <button id="conv-btn" class="p-3 bg-black/40 rounded-2xl border border-green-500/20 active:scale-90 transition-transform">
                             <i data-lucide="ruler" class="w-6 h-6 text-green-400"></i>
@@ -155,11 +153,13 @@
                 <!-- Timeline Bar -->
                 <div class="px-10 pt-8 pb-8 bg-black/30">
                     <div class="relative h-4 w-full bg-zinc-800 rounded-full overflow-hidden flex">
-                        <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
-                        <div class="h-full bg-blue-950" style="width: 33.33%"></div> 
-                        <div class="h-full bg-[#3b0764]" style="width: 20.83%"></div> 
-                        <div class="h-full bg-zinc-700" style="width: 29.17%"></div> 
-                        <div class="h-full bg-[#3b0764]" style="width: 8.33%"></div> 
+                        <div class="h-full bg-blue-950" style="width: 33.33%"></div> <!-- Sleep 00-08 -->
+                        <div class="h-full bg-emerald-900" style="width: 6.25%"></div> <!-- Wake 08-09:30 -->
+                        <div class="h-full bg-zinc-700" style="width: 31.25%"></div> <!-- Merged Work 09:30-17:00 -->
+                        <div class="h-full bg-indigo-900" style="width: 4.16%"></div> <!-- Watch/Eat 17-18 -->
+                        <div class="h-full bg-[#3b0764]" style="width: 18.75%"></div> <!-- Together 18-22:30 -->
+                        <div class="h-full bg-purple-900" style="width: 2.1%"></div> <!-- Prep 22:30-23 -->
+                        <div class="h-full bg-blue-950" style="width: 4.17%"></div> <!-- Sleep 23-24 -->
                         <div id="time-cursor" class="absolute top-0 bottom-0 w-2 bg-green-200 shadow-[0_0_20px_rgba(74,222,128,1)] z-10 transition-all duration-1000"></div>
                     </div>
                     <div class="flex justify-between mt-4 text-[12px] text-green-400 font-black px-1 uppercase tracking-widest">
@@ -169,10 +169,10 @@
             </div>
         </div>
 
-        <!-- Schedule List: Proportions adjusted for iPhone height -->
+        <!-- Schedule List -->
         <div class="mt-6 flex-[0.7] overflow-hidden flex flex-col">
             <h3 class="text-[12px] font-black text-green-400 uppercase tracking-[0.3em] px-2 mb-3">Schedule Overview</h3>
-            <div id="schedule-list" class="space-y-3 flex-1 overflow-hidden"></div>
+            <div id="schedule-list" class="space-y-3 flex-1 overflow-y-auto no-scrollbar"></div>
         </div>
 
         <!-- Side Drawers -->
@@ -188,16 +188,16 @@
                     <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">°F</label><input type="number" id="f-input" placeholder="0" class="conv-input"></div>
                 </div>
                 <div class="grid grid-cols-2 gap-6">
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">USD ($)</label><input type="number" id="usd-input" placeholder="0.00" class="conv-input"></div>
+                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">AUD ($)</label><input type="number" id="aud-input" placeholder="0.00" class="conv-input"></div>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
                     <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">KM/H</label><input type="number" id="kmh-input" placeholder="0" class="conv-input"></div>
                     <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">MPH</label><input type="number" id="mph-input" placeholder="0" class="conv-input"></div>
                 </div>
                 <div class="grid grid-cols-2 gap-6">
                     <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">CM</label><input type="number" id="cm-input" placeholder="0" class="conv-input"></div>
                     <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">Inches</label><input type="number" id="in-input" placeholder="0" class="conv-input"></div>
-                </div>
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">Meters</label><input type="number" id="m-input" placeholder="0" class="conv-input"></div>
-                    <div class="space-y-2.5"><label class="text-[11px] text-green-600 uppercase font-black px-1">Yards</label><input type="number" id="yd-input" placeholder="0" class="conv-input"></div>
                 </div>
             </div>
             <button onclick="toggleSidebar('conversion', false)" class="mt-10 w-full py-5 bg-zinc-800 rounded-3xl text-green-400 font-bold uppercase tracking-widest active:bg-zinc-700 shadow-lg">Close</button>
@@ -260,11 +260,12 @@
             toggleSidebar('debug', false);
         });
 
-        // Conversions
+        // Conversions logic
         const cIn = document.getElementById('c-input'), fIn = document.getElementById('f-input');
         const kmhIn = document.getElementById('kmh-input'), mphIn = document.getElementById('mph-input');
         const cmIn = document.getElementById('cm-input'), inIn = document.getElementById('in-input');
-        const mIn = document.getElementById('m-input'), ydIn = document.getElementById('yd-input');
+        const usdIn = document.getElementById('usd-input'), audIn = document.getElementById('aud-input');
+        const exchangeRate = 1.52;
 
         cIn.addEventListener('input', () => { if (cIn.value === '') { fIn.value = ''; return; } fIn.value = ((parseFloat(cIn.value) * 9/5) + 32).toFixed(1); });
         fIn.addEventListener('input', () => { if (fIn.value === '') { cIn.value = ''; return; } cIn.value = ((parseFloat(fIn.value) - 32) * 5/9).toFixed(1); });
@@ -272,10 +273,10 @@
         mphIn.addEventListener('input', () => { if (mphIn.value === '') { kmhIn.value = ''; return; } kmhIn.value = (parseFloat(mphIn.value) * 1.609).toFixed(1); });
         cmIn.addEventListener('input', () => { if (cmIn.value === '') { inIn.value = ''; return; } inIn.value = (parseFloat(cmIn.value) / 2.54).toFixed(1); });
         inIn.addEventListener('input', () => { if (inIn.value === '') { cmIn.value = ''; return; } cmIn.value = (parseFloat(inIn.value) * 2.54).toFixed(1); });
-        mIn.addEventListener('input', () => { if (mIn.value === '') { ydIn.value = ''; return; } ydIn.value = (parseFloat(mIn.value) / 0.914).toFixed(1); });
-        ydIn.addEventListener('input', () => { if (ydIn.value === '') { mIn.value = ''; return; } mIn.value = (parseFloat(ydIn.value) * 0.914).toFixed(1); });
+        usdIn.addEventListener('input', () => { if (usdIn.value === '') { audIn.value = ''; return; } audIn.value = (parseFloat(usdIn.value) * exchangeRate).toFixed(2); });
+        audIn.addEventListener('input', () => { if (audIn.value === '') { usdIn.value = ''; return; } usdIn.value = (parseFloat(audIn.value) / exchangeRate).toFixed(2); });
 
-        // Debug
+        // Debug logic
         const toggleSwitch = document.getElementById('manual-toggle'), controls = document.getElementById('manual-controls');
         const slider = document.getElementById('manual-slider'), display = document.getElementById('manual-time-display');
 
@@ -297,31 +298,38 @@
         });
 
         function update() {
-            let now = new Date();
+            // Get Adelaide Time
+            let adelaideDate = new Date(new Date().toLocaleString("en-US", {timeZone: "Australia/Adelaide"}));
+
             if (manualOverride) { 
-                now = new Date();
-                now.setHours(Math.floor(manualDecimalTime)); 
-                now.setMinutes(Math.floor((manualDecimalTime % 1) * 60)); 
-                now.setSeconds(0); 
+                adelaideDate.setHours(Math.floor(manualDecimalTime)); 
+                adelaideDate.setMinutes(Math.floor((manualDecimalTime % 1) * 60)); 
+                adelaideDate.setSeconds(0); 
             }
             
-            const miami = new Date(now.getTime() - (15.5 * 3600000));
-            const hours = now.getHours(), mins = now.getMinutes(), decimalTime = hours + (mins / 60);
+            // Get Miami Time (Relative to Adelaide Date)
+            const miamiDate = new Date(adelaideDate.toLocaleString("en-US", {timeZone: "America/New_York"}));
+
+            const hours = adelaideDate.getHours(), mins = adelaideDate.getMinutes(), decimalTime = hours + (mins / 60);
 
             const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
-            document.getElementById('adelaide-clock').innerText = now.toLocaleTimeString('en-US', timeOptions);
-            document.getElementById('miami-clock').innerText = miami.toLocaleTimeString('en-US', timeOptions);
+            document.getElementById('adelaide-clock').innerText = adelaideDate.toLocaleTimeString('en-US', timeOptions);
+            document.getElementById('miami-clock').innerText = miamiDate.toLocaleTimeString('en-US', timeOptions);
             document.getElementById('time-cursor').style.left = (decimalTime / 24 * 100) + '%';
 
             let status = {};
-            if (decimalTime >= 22 || decimalTime < 2) {
-                status = { title: "YAP TIME", color: "bg-[#3b0764]", type: 'talk-pm' };
-            } else if (decimalTime >= 2 && decimalTime < 10) {
-                status = { title: "SLEEPY TIME", color: "bg-blue-950", type: 'sleep' };
-            } else if (decimalTime >= 10 && decimalTime < 15) {
-                status = { title: "MORNING CHOCOLATE", color: "bg-[#3b0764]", type: 'talk-am' };
+            if (decimalTime >= 23 || decimalTime < 8) {
+                status = { title: "Beddy Byes", color: "bg-blue-950", type: 'sleep' };
+            } else if (decimalTime >= 8 && decimalTime < 9.5) {
+                status = { title: "Wake up & Walk", color: "bg-emerald-900", type: 'wake' };
+            } else if (decimalTime >= 9.5 && decimalTime < 17) {
+                status = { title: "Working", color: "bg-zinc-800", type: 'work' };
+            } else if (decimalTime >= 17 && decimalTime < 18) {
+                status = { title: "Watch and Eat", color: "bg-indigo-900", type: 'relax' };
+            } else if (decimalTime >= 18 && decimalTime < 22.5) {
+                status = { title: "Together Time", color: "bg-[#3b0764]", type: 'together' };
             } else {
-                status = { title: "WORK", color: "bg-zinc-800", type: 'work' };
+                status = { title: "Ready for Bed", color: "bg-purple-900", type: 'prep' };
             }
 
             if (status.color !== lastStatusColor) {
@@ -335,14 +343,16 @@
                 [moon, heart, camera].forEach(o => o.classList.replace('opacity-100', 'opacity-0'));
                 
                 if (status.type === 'sleep') moon.classList.replace('opacity-0', 'opacity-100');
-                else if (status.type.includes('talk')) heart.classList.replace('opacity-0', 'opacity-100');
+                else if (['together', 'relax', 'prep', 'wake', 'finish'].includes(status.type)) heart.classList.replace('opacity-0', 'opacity-100');
                 else if (status.type === 'work') camera.classList.replace('opacity-0', 'opacity-100');
 
                 const items = [
-                    { time: '10:00 PM', label: 'YAP TIME', type: 'talk-pm', icon: 'heart', color: 'bg-purple-600' },
-                    { time: '2:00 AM', label: 'SLEEPY TIME', type: 'sleep', icon: 'moon', color: 'bg-blue-600' },
-                    { time: '10:00 AM', label: 'Morning Chocolate', type: 'talk-am', icon: 'heart', color: 'bg-purple-600' },
-                    { time: '3:00 PM', label: 'WORK', type: 'work', icon: 'camera', color: 'bg-zinc-500' }
+                    { time: '8:00 AM', label: 'Wake up, walk', type: 'wake', icon: 'sun', color: 'bg-emerald-600' },
+                    { time: '9:30 AM', label: 'Work (Finish by 5)', type: 'work', icon: 'camera', color: 'bg-zinc-500' },
+                    { time: '5:00 PM', label: 'Watch and Eat', type: 'relax', icon: 'tv', color: 'bg-indigo-600' },
+                    { time: '6:00 PM', label: 'US Time Together', type: 'together', icon: 'heart', color: 'bg-purple-600' },
+                    { time: '10:30 PM', label: 'Get ready for bed', type: 'prep', icon: 'sparkles', color: 'bg-purple-400' },
+                    { time: '11:00 PM', label: 'Beddy byes', type: 'sleep', icon: 'moon', color: 'bg-blue-600' }
                 ];
                 
                 document.getElementById('schedule-list').innerHTML = items.map(item => `
@@ -359,7 +369,7 @@
                                 ? 'bg-green-950/20 border-green-500/30 shadow-xl' 
                                 : 'bg-zinc-900/40 border-transparent opacity-60'}">
                             <div class="flex flex-col">
-                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-green-700 leading-none">Category</span>
+                                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-green-700 leading-none">Schedule</span>
                                 <span class="text-sm font-bold tracking-tight text-green-400">${item.label}</span>
                             </div>
                             <span class="font-mono text-[11px] text-green-700 tracking-wider">${item.time}</span>
